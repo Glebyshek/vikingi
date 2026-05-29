@@ -98,29 +98,12 @@ public class VikingRepository {
         jdbcTemplate.update("delete from vikings");
     }
 
-    public void deleteByName(String name) {
-        String sql = "delete from vikings where name = ?";
-        jdbcTemplate.update(sql, name);
-    }
-
-    public VikingEntity findByName(String name) {
-        String sql = """
-            select id, name, age, height_cm, hair_color, beard_style, description
-            from vikings
-            where name = ?
-            """;
-        List<VikingEntity> result = jdbcTemplate.query(sql, vikingRowMapper, name);
-        if (result.isEmpty()) {
-            return null;
-        }
-        return result.get(0);
-    }
     public void update(int id, VikingEntity viking) {
         String sql = """
-            update vikings
-            set name = ?, age = ?, height_cm = ?, hair_color = ?, beard_style = ?, description = ?
-            where id = ?
-            """;
+                update vikings
+                set name = ?, age = ?, height_cm = ?, hair_color = ?, beard_style = ?, description = ?
+                where id = ?
+                """;
 
         jdbcTemplate.update(sql,
                 viking.name(),

@@ -65,11 +65,4 @@ public class VikingDesktopFrame extends JFrame {
             }
         }
     }
-    public void removeViking(String name) {
-        tableModel.removeViking(name);
-    }
-
-    public void updateViking(String name, Viking updated) {
-        tableModel.updateViking(name, updated);
-    }
 }

@@ -37,15 +37,4 @@ public class VikingListener {
             gui.addNewViking(viking);
         }
     }
-    public void notifyRemove(String name) {
-        if (gui != null) {
-            gui.removeViking(name);
-        }
-    }
-
-    public void notifyUpdate(String name, Viking updated) {
-        if (gui != null) {
-            gui.updateViking(name, updated);
-        }
-    }
 }
