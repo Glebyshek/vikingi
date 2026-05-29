@@ -44,4 +44,8 @@ public class VikingService {
     public void updateVikingByName(String name, Viking viking) {
         vikingStorage.updateByName(name, viking);
     }
+    public void generateBulkVikings(int count) {
+        java.util.stream.IntStream.range(0, count)
+                .forEach(i -> createRandomViking());
+    }
 }

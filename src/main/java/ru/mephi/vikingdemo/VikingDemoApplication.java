@@ -9,6 +9,9 @@ import javax.swing.SwingUtilities;
 import ru.mephi.vikingdemo.controller.VikingListener;
 import ru.mephi.vikingdemo.service.VikingService;
 
+import ru.mephi.vikingdemo.gui.VikingLambdaFrame;
+import ru.mephi.vikingdemo.service.VikingLambdaService;
+
 @SpringBootApplication
 public class VikingDemoApplication {
 
@@ -25,6 +28,9 @@ public class VikingDemoApplication {
             VikingDesktopFrame frame = new VikingDesktopFrame(vikingService);
             vikingListener.setGui(frame);
             frame.setVisible(true);
+            VikingLambdaService lambdaService = context.getBean(VikingLambdaService.class);
+            VikingLambdaFrame lambdaFrame = new VikingLambdaFrame(lambdaService, vikingService);
+            lambdaFrame.setVisible(true);
         });
     }
 }
