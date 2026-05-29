@@ -37,12 +37,11 @@ public class VikingService {
     public Viking addViking(Viking viking) {
         return vikingStorage.save(viking);
     }
-
-    public void deleteById(int id) {
-        vikingStorage.deleteById(id);
+    public void deleteByName(String name) {
+        vikingStorage.deleteByName(name);
     }
 
-    public void updateViking(int id, Viking viking) {
-        vikingStorage.update(id, viking);
+    public void updateVikingByName(String name, Viking viking) {
+        vikingStorage.updateByName(name, viking);
     }
 }

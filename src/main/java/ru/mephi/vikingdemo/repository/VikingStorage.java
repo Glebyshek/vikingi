@@ -58,20 +58,19 @@ public class VikingStorage {
                 .toList();
     }
 
-    @Transactional
-    public void deleteById(int id) {
-        vikingRepository.deleteById(id);
+
+    public void deleteByName(String name) {
+        vikingRepository.deleteByName(name);
     }
 
-    @Transactional
-    public void update(int id, Viking viking) {
-        vikingRepository.update(id, vikingMapper.toVikingEntity(viking));
-
-        equipmentItemRepository.deleteByVikingId(id);
-        for (EquipmentItem item : viking.equipment()) {
-            equipmentItemRepository.save(
-                    vikingMapper.toEquipmentItemEntity(id, item)
-            );
+    public void updateByName(String name, Viking viking) {
+        VikingEntity entity = vikingRepository.findByName(name);
+        if (entity != null) {
+            vikingRepository.update(entity.id(), vikingMapper.toVikingEntity(viking));
+            equipmentItemRepository.deleteByVikingId(entity.id());
+            for (EquipmentItem item : viking.equipment()) {
+                equipmentItemRepository.save(vikingMapper.toEquipmentItemEntity(entity.id(), item));
+            }
         }
     }
 }
