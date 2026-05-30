@@ -78,30 +78,27 @@ public class VikingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Удалить викинга по id", operationId = "deleteViking")
+    @DeleteMapping("/{name}")
+    @Operation(summary = "Удалить викинга по имени", operationId = "deleteViking")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Викинг успешно удалён")
     })
-    public ResponseEntity<Void> deleteViking(
-            @Parameter(description = "Id викинга для удаления", example = "1")
-            @PathVariable int id) {
-        System.out.println("DELETE /api/vikings/" + id + " called");
-        vikingService.deleteById(id);
+    public ResponseEntity<Void> deleteViking(@PathVariable String name) {
+        System.out.println("DELETE /api/vikings/" + name + " called");
+        vikingService.deleteByName(name);
+        vikingListener.notifyRemove(name);
         return ResponseEntity.noContent().build();
     }
-
-    @PutMapping("/{id}")
+    
+    @PutMapping("/{name}")
     @Operation(summary = "Перезаписать параметры конкретного викинга", operationId = "updateViking")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Параметры успешно обновлены")
     })
-    public ResponseEntity<Viking> updateViking(
-            @Parameter(description = "Id викинга для обновления", example = "1")
-            @PathVariable int id,
-            @RequestBody Viking viking) {
-        System.out.println("PUT /api/vikings/" + id + " called");
-        vikingService.updateViking(id, viking);
+    public ResponseEntity<Viking> updateViking(@PathVariable String name, @RequestBody Viking viking) {
+        System.out.println("PUT /api/vikings/" + name + " called");
+        vikingService.updateVikingByName(name, viking);
+        vikingListener.notifyUpdate(name, viking);
         return ResponseEntity.ok(viking);
     }
 }
